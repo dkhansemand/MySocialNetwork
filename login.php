@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once './class.mysql.php';
+require_once './lib/class.mysql.php';
 
 if(isset($_SESSION['isLoggedIn'])){
     session_destroy();
@@ -23,6 +23,7 @@ if($_POST){
                     $_SESSION['id'] = $result['id'];
                     $_SESSION['isLoggedIn'] = true;
                     $conn = null;
+                    header('Location: ./');
                 }else{
                     $conn = null;
                     $errorMsg = "Forkert brugernavn/password.";
