@@ -40,7 +40,7 @@ if($_POST){
 
 <form action="" method="post">
     <h2>Login:</h2>
-    <label>Brugernavn;</labek>
+    <label>Brugernavn;</label>
     <input type="text" name="username" placeholder="Brugernavn">
     <label>Password</label>
     <input type="password" name="password" placeholder="password">
