@@ -25,7 +25,7 @@ if($_GET){
             $userDetail = $query->fetch(PDO::FETCH_ASSOC);
 ?>
 <pre>
-<?=print_r($userDetail)?>
+<?=print_r($userDetail, true)?>
 </pre>
 <?php
         }else{
@@ -37,3 +37,33 @@ if($_GET){
 }
 
 ?>
+<?php
+    if($userDetail["user_ID"] == $_SESSION['id']){
+?>
+<h2>Rediger din profil</h2>
+<form action="editProfile.php" method="post">
+    <label>E-mail:</label>
+    <input type="email" name="email" value="<?=$userDetail['email'];?>"><br>
+    <label>Fornavn</label>
+    <input type="text" name="firstname" placeholder="Fornavn" value="<?=$userDetail['firstname'];?>"><br>
+    <label>Efternavn</label>
+    <input type="text" name="surname" placeholder="Efternavn" value="<?=$userDetail['surname'];?>"><br>
+    <label>Alder</label>
+    <input type="number" name="age" max="99" value="<?=$userDetail['age'];?>"><br>
+    <label>Køn</label>
+    <select name="gender" autofocus="<?=$userDetail['gender'];?>">
+        <option value="Male">Mand</option>
+        <option value="Female">Kvinde</option>
+        <option value="Other">Andet</option>
+    </select><br>
+    <label>By</label>
+    <input type="text" name="city" placeholder="By" value="<?=$userDetail['city'];?>"><br>
+    <label>Land</label>
+    <input type="text" name="country" placeholder="Land" value="<?=$userDetail['country'];?>"><br>
+    <label>Profil tekst</label><br>
+    <textarea rows="5" cols="30" name="profileText"><?=$userDetail['profileText'];?></textarea><br>
+    <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
+    <button type="submit">Gem</button>
+</form>
+<?php
+}
