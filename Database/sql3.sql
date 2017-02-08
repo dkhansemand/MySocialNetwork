@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `mysocialnetwork`.`Pictures` (
   `Filename` VARCHAR(128) NOT NULL,
   `Title` VARCHAR(45) NULL,
   `PictureDesc` TEXT NULL,
-  `Owner` INT NOT NULL,
+  `Owner` INT NULL,
   `DateAdded` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   INDEX `fk_Pictures_Users1_idx` (`Owner` ASC),
@@ -131,25 +131,6 @@ CREATE TABLE IF NOT EXISTS `mysocialnetwork`.`Friends` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Data for table `mysocialnetwork`.`Users`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mysocialnetwork`;
-INSERT INTO `mysocialnetwork`.`Users` (`Id`, `Username`, `Email`, `Password`) VALUES (1, 'System', 'admin@system.dk', '1234root');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `mysocialnetwork`.`Pictures`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mysocialnetwork`;
-INSERT INTO `mysocialnetwork`.`Pictures` (`Id`, `Filename`, `Title`, `PictureDesc`, `Owner`, `DateAdded`) VALUES (1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', 1, DEFAULT);
-
-COMMIT;
-
 USE `mysocialnetwork`;
 
 DELIMITER $$
@@ -165,4 +146,24 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mysocialnetwork`.`Pictures`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mysocialnetwork`;
+INSERT INTO `mysocialnetwork`.`Pictures` (`Id`, `Filename`, `Title`, `PictureDesc`, `Owner`, `DateAdded`) VALUES (1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', NULL, DEFAULT);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `mysocialnetwork`.`Users`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mysocialnetwork`;
+INSERT INTO `mysocialnetwork`.`Users` (`Id`, `Username`, `Email`, `Password`) VALUES (1, 'System', 'admin@system.dk', '1234root');
+
+COMMIT;
+
+
 
