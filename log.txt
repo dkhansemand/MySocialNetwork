@@ -1,0 +1,25 @@
+Executing SQL script in server
+ERROR: Error 1235: This version of MySQL doesn't yet support 'multiple triggers with the same action time and event for one table'
+SQL Code:
+        CREATE DEFINER = CURRENT_USER TRIGGER `mysocialnetwork`.`Users_AFTER_INSERT` AFTER INSERT ON `Users` FOR EACH ROW
+        BEGIN
+        	INSERT INTO `mysocialnetwork`.`Usersdetails` (UserId, ProfilePictureId)VALUES(NEW.Id, 1);
+        END
+
+SQL script execution finished: statements: 12 succeeded, 1 failed
+
+Fetching back view definitions in final form.
+Nothing to fetch
+
+
+
+
+Executing SQL script in server
+ERROR: Error 1452: Cannot add or update a child row: a foreign key constraint fails (`mysocialnetwork`.`pictures`, CONSTRAINT `fk_Pictures_Users1` FOREIGN KEY (`Owner`) REFERENCES `users` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+SQL Code:
+        INSERT INTO `mysocialnetwork`.`Pictures` (`Id`, `Filename`, `Title`, `PictureDesc`, `Owner`, `DateAdded`) VALUES (1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', 0, DEFAULT)
+
+SQL script execution finished: statements: 19 succeeded, 1 failed
+
+Fetching back view definitions in final form.
+Nothing to fetch

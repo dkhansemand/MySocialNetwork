@@ -47,3 +47,4 @@ if($_POST){
     <button type="submit">Login</button>
     <p style="color: red"><?=@$errorMsg;?></p>
 </form>
+<p>Opret en bruger <a href="createUser.php" title="">her</a></p>
