@@ -133,14 +133,6 @@ ENGINE = InnoDB;
 
 USE `mysocialnetwork`;
 
--- -----------------------------------------------------
--- Data for table `mysocialnetwork`.`Pictures`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mysocialnetwork`;
-INSERT INTO `mysocialnetwork`.`Pictures` (`Id`, `Filename`, `Title`, `PictureDesc`, `Owner`, `DateAdded`) VALUES (1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', 1, DEFAULT);
-
-COMMIT;
 
 DELIMITER $$
 USE `mysocialnetwork`$$
@@ -162,6 +154,15 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `mysocialnetwork`;
 INSERT INTO `mysocialnetwork`.`Users` (`Id`, `Username`, `Email`, `Password`) VALUES (1, 'System', 'admin@system.dk', '1234root');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `mysocialnetwork`.`Pictures`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mysocialnetwork`;
+INSERT INTO `mysocialnetwork`.`Pictures` (`Id`, `Filename`, `Title`, `PictureDesc`, `Owner`, `DateAdded`) VALUES (1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', 1, DEFAULT);
 
 COMMIT;
 
