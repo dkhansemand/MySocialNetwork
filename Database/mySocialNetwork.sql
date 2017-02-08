@@ -14,6 +14,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE SCHEMA IF NOT EXISTS `mysocialnetwork` DEFAULT CHARACTER SET utf8 ;
 USE `mysocialnetwork` ;
 
+
+-- -----------------------------------------------------
+-- Table `mysocialnetwork`.`Users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mysocialnetwork`.`Users` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Username` VARCHAR(64) NOT NULL,
+  `Email` VARCHAR(128) NOT NULL,
+  `Password` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `username_UNIQUE` (`Username` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`Email` ASC))
+ENGINE = InnoDB;
+
 -- -----------------------------------------------------
 -- Table `mysocialnetwork`.`Pictures`
 -- -----------------------------------------------------
@@ -32,20 +46,6 @@ CREATE TABLE IF NOT EXISTS `mysocialnetwork`.`Pictures` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `mysocialnetwork`.`Users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mysocialnetwork`.`Users` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Username` VARCHAR(64) NOT NULL,
-  `Email` VARCHAR(128) NOT NULL,
-  `Password` VARCHAR(256) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE INDEX `username_UNIQUE` (`Username` ASC),
-  UNIQUE INDEX `email_UNIQUE` (`Email` ASC))
-ENGINE = InnoDB;
-
 
 
 -- -----------------------------------------------------
