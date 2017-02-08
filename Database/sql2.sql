@@ -133,7 +133,6 @@ ENGINE = InnoDB;
 
 
 
-DELIMITER ;
 
 -- -----------------------------------------------------
 -- Data for table `mysocialnetwork`.`Users`
@@ -163,3 +162,9 @@ BEGIN
 	INSERT INTO `mysocialnetwork`.`Userdetails` (ProfilePictureId, UserId)VALUES(1, NEW.Id);
 END$$
 
+
+DELIMITER ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
