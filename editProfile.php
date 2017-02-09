@@ -135,8 +135,9 @@ if($_POST){
 
     if($_GET["id"] == $_SESSION['id']){
        /* require_once 'friends.php';*/
-       if(isset($_SESSION["upload"]["error"])){
+       if(isset($_SESSION["upload"]["msg"])){
             $uploadError = $_SESSION["upload"]["msg"];
+            $_SESSION["upload"]["msg"] = '';
        }
 ?>
 <div class="row"></div>
