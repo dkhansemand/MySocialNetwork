@@ -1,24 +1,8 @@
 <?php
-    session_start();
 
-    if(!isset($_SESSION["isLoggedIn"])){
-        header('Location: login.php');
-        exit();
-    }
+require './partials/header.php';
 
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Social Network</title>
-</head>
-<body>
-    <?php
-        #SEARCH
-
+require './profile.php';
         #PROFILE
             #Edituser
             #Friends
@@ -29,6 +13,4 @@
             #Add
             #Edit
             #SLET
-    ?>
-</body>
-</html>
+require './partials/footer.php';

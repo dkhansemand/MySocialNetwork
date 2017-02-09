@@ -1,6 +1,7 @@
+
 <?php
 require_once './lib/class.mysql.php';
-
+require './partials/header.php';
 if($_POST){
     if(!empty($_POST["searchInput"])){
 
@@ -20,9 +21,11 @@ if($_POST){
         $query->bindParam(":SEARCH", $searchInput, PDO::PARAM_STR);
         if($query->execute() && $query->rowCount() > 0){
             while($results = $query->fetch(PDO::FETCH_ASSOC)){
-                echo '<pre>';
-                var_dump($results);
-                echo '</pre>';
+                ?>
+                <section>
+                <?=var_dump($results);?>
+               </section>
+            <?php
             }
         }else{
             echo 'Din søgning "' . $search . '" gav ingen resultater.';
@@ -32,9 +35,6 @@ if($_POST){
     }
 }
 
+require './partials/footer.php';
 ?>
 
-<form action="" method="post">
-    <input type="text" name="searchInput" placeholder="Søg...">
-    <button type="submit">Søg</button>
-</form>
