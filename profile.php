@@ -1,3 +1,11 @@
+<style>
+.card .card-image img{
+    width: auto;
+}
+.card .card-image .card-title{
+    color: #000;
+}
+</style>
 <?php
 
         $conn = new dbconnector();
@@ -15,13 +23,32 @@
             $userDetail = $query->fetch(PDO::FETCH_ASSOC);
             $conn = null;
 ?>
-<pre>
-<?=print_r($userDetail, true);?>
-</pre>
+
 <p>
-<img src="uploads/<?=$userDetail['profilePicture'];?>" alt="<?=$userDetail['pictureTitle'];?>" height="250" width="250">
+     <div class="row">
+        <div class="col s6 m5">
+          <div class="card">
+            <div class="card-image" >
+              <img src="uploads/<?=$userDetail['profilePicture'];?>" alt="<?=$userDetail['pictureTitle'];?>" height="250" width="250">
+            </div>
+            <div class="card-content">
+            <h3><?=$userDetail["firstname"];?>&nbsp;<?=$userDetail["surname"];?></h3>
+            <p>Brugernavn: <?=$userDetail["username"];?></p>
+            <p>E-mail: <?=$userDetail["email"];?></p>
+            <p>Alder: <?=$userDetail["age"];?></p>
+            <p>Køn: <?=$userDetail["gender"];?></p>
+            <p>By: <?=$userDetail["city"];?></p>
+            <p>Land: <?=$userDetail["country"];?></p>
+            <p>Bruger oprettet: <?=$userDetail["dateCreated"];?></p>
+              <p><?=$userDetail["profileText"];?></p>
+            </div>
+            <div class="card-action">
+              <a class="waves-effect waves-light btn" href="editProfile.php?id=<?=$_SESSION['id'];?>">Rediger profil</a>
+            </div>
+          </div>
+        </div>
+      </div>
 </p>
-<a class="waves-effect waves-light btn" href="editProfile.php?id=<?=$_SESSION['id'];?>">Rediger profil</a>
 <?php
         }else{
             echo 'Bruger findes ikke';

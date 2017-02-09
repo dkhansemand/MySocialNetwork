@@ -27,6 +27,9 @@ require_once './lib/class.mysql.php';
   <nav>
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo left">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="logout.php">Log ud</a></li>
+      </ul>
        <form action="search.php" method="post" class="right">
         <div class="input-field">
           <input id="search" type="search" name="searchInput" required>

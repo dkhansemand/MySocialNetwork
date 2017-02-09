@@ -1,3 +1,4 @@
+
 <?php
 require './partials/header.php';
 
@@ -120,7 +121,7 @@ if($_POST){
             if($query->execute()){
                 $conn = null;
                 $success = 'Profil er blevet opdateret!';
-                header('Refresh: 0');
+                header('Refresh: 5; url=./');
             }else{
                 $conn = null;
                 $success =  'Der skete en fejl og kunne ikke opdatere.';
@@ -166,12 +167,12 @@ if($_POST){
     <textarea rows="5" cols="30" name="profileText"><?=$userDetail['profileText'];?></textarea><br>
     <p style="color: red;"><?=@$errProfiletext;?></p>
     <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
-    <button type="submit">Gem</button>
+    <button type="submit" class="waves-effect waves-light btn">Gem</button>
 </form>
-
-<form action="deleteUser.php" method="post">
+<br>
+<form action="deleteUser.php" method="post" id="deleteUser">
     <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
-    <button type="submit">Slet bruger</button>
+    <button type="submit" onclick="return confirm('Er du helt sikker?')" class="waves-effect waves-light btn red">Slet bruger</button>
 </form>
 <?php
 }else {
@@ -183,3 +184,16 @@ if($_POST){
 <?php
 }
 require './partials/footer.php';
+?>
+
+<script>
+/*var el = document.getElementById('deleteUser');
+
+el.addEventListener('submit', function(){
+  if(confirm('Are you sure you want to submit this form?')){
+
+  }else{
+    return false;
+  };
+}, false);*/
+</script>
