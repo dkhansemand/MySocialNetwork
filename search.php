@@ -28,7 +28,7 @@ if($_POST){
             while($results = $query->fetch(PDO::FETCH_ASSOC)){
                 if($results["userID"] != $_SESSION["id"]){
                 ?>
-        <div class="col s5 m4">
+        <div class="col s4 m3">
           <div class="card">
             <div class="card-image" >
               <img src="uploads/<?=$results['profilePicture'];?>" alt="<?=$results['pictureTitle'];?>" title="<?=$results['pictureTitle'];?>" height="250" width="250">
