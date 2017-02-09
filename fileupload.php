@@ -18,7 +18,7 @@ if($_POST){
 
             if(preg_match('/^.*\.(jpg|jpeg|png|gif)$/i', $_FILES["file"]["name"])){
                 if($_FILES["file"]["size"] < 1536000 && $_FILES["file"]["error"] == 0){
-                    $filename = $_FILES["file"]["name"];
+                    $filename = date("dmyHisu") . $_FILES["file"]["name"];
 
                     $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
                     $description = filter_var($_POST['pictureDesc'], FILTER_SANITIZE_STRING);
@@ -53,5 +53,4 @@ if($_POST){
     }
 }
 ?>
-<br />
-## ID, Filename, Title, PictureDesc, Owner, DateAdded
+
