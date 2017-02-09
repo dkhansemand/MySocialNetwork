@@ -8,9 +8,9 @@ $queryFriend = $connFriend->newQuery("SELECT
         userdetails.ProfilePictureId,
         pictures.filename AS profilePicture, pictures.title AS pictureTitle
         FROM `friends` 
-        INNER JOIN userdetails ON friends.UserOneId = userdetails.UserId AND friends.UserTwoId = :ID
+        INNER JOIN userdetails ON userdetails.UserId = friends.UserTwoId
         INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id");
-        $queryFriend->bindParam(":ID", $_GET["id"], PDO::PARAM_STR);
+        //$queryFriend->bindParam(":ID", $_GET["id"], PDO::PARAM_STR);
         if($queryFriend->execute() && $queryFriend->rowCount() > 0){
             while($friends = $queryFriend->fetch(PDO::FETCH_ASSOC)){
                 /*echo '<pre>';
