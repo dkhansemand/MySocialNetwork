@@ -5,6 +5,8 @@
         <input type="text" name="pictureDesc" placeholder="Beskrivelse"><br><br>
         <label>Vælg dit billede</label><br>
         <input name="file" type="file"><br>
+        <label>Profil billede: 
+        <input type="checkbox" name="profilePic" value="1" id="profilePic"></label><br>
         <input name="submit" type="submit" value="Upload">
     </form>
 
@@ -25,7 +27,8 @@ if($_POST){
                     $uploaddir = 'uploads/';
                     
                     $conn = new dbconnector();
-                    $query = $conn->newQuery("INSERT INTO pictures  (title, pictureDesc, filename, owner)  VALUES (:title, :pictureDesc, :filename, :owner)");
+
+                    $query = $conn->newQuery("INSERT INTO pictures  (title, pictureDesc, filename, owner)  VALUES (:title, :pictureDesc, :filename, :owner) ");
                     $query->bindParam(":title",$title);
                     $query->bindParam(":pictureDesc",$description);
                     $query->bindParam(":filename",$filename);

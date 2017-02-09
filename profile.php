@@ -18,6 +18,9 @@
 <pre>
 <?=print_r($userDetail, true);?>
 </pre>
+<p>
+<img src="uploads/<?=$userDetail['profilePicture'];?>" alt="<?=$userDetail['pictureTitle'];?>" height="250" width="250">
+</p>
 <a class="waves-effect waves-light btn" href="editProfile.php?id=<?=$_SESSION['id'];?>">Rediger profil</a>
 <?php
         }else{
