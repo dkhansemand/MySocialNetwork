@@ -17,7 +17,18 @@
 </head>
 <body>
     <?php
-        require 'showUsers.php';
+        #SEARCH
+
+        #PROFILE
+            #Edituser
+            #Friends
+
+
+        #POST
+            #Comment
+            #Add
+            #Edit
+            #SLET
     ?>
 </body>
 </html>
