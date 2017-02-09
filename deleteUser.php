@@ -19,6 +19,7 @@ if($_POST){
             $conn = null;
             session_destroy();
             echo 'Din bruger er nu slettet. Tak for denne gang!';
+            header('Refresh: 5; url=./');
         }
      }else{
          header('Location: ./');
