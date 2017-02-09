@@ -8,7 +8,7 @@ require './partials/header.php';
         userDetails.firstname, userDetails.surname, userDetails.age, userDetails.gender,
         userDetails.city, userDetails.country, userDetails.profileText,
         DATE_FORMAT(userdetails.DateCreated, '%d-%m-%Y %h:%i:%s') AS dateCreated, userdetails.ProfilePictureId,
-        pictures.filename AS profilePicture, pictures.title AS pictureTitle
+        pictures.filename AS profilePicture, pictures.title AS pictureTitle, pictures.pictureDesc
         FROM `users` 
         INNER JOIN userdetails ON users.id = userdetails.UserId AND users.id = :ID
         INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id");
@@ -135,9 +135,14 @@ if($_POST){
 
     if($_GET["id"] == $_SESSION['id']){
        /* require_once 'friends.php';*/
+       if(isset($_SESSION["upload"]["error"])){
+            $uploadError = $_SESSION["upload"]["msg"];
+       }
 ?>
+<div class="row"></div>
+<div class="container left">
 <div class="row">
-    <div class="col s8 m6">
+    <div class="col s8 m8 offset-s1 offset-m1">
     <p><?=@$success;?></p>
     <h2>Rediger din profil</h2>
     <form action="" method="post">
@@ -177,7 +182,25 @@ if($_POST){
         <button type="submit" onclick="return confirm('Er du helt sikker?')" class="waves-effect waves-light btn red">Slet bruger</button>
     </form>
     </div>
+    <div class="col s2 m2 offset-s1 offset-m1">
+    <img src="uploads/<?=$userDetail['profilePicture'];?>" alt="<?=$userDetail['pictureTitle'];?>" title="<?=$userDetail['pictureTitle'];?>" height="250" width="250">
+    <p>Skift profil billede:</p>
+
+     <form action="fileupload.php" enctype="multipart/form-data" method="post">
+        <label>Titel</label>
+        <input type="text" name="title" placeholder="Title" value="<?=$userDetail['pictureTitle'];?>"><br>
+        <label>Beskrivelse</label>
+        <input type="text" name="pictureDesc" placeholder="Beskrivelse" value="<?=$userDetail['pictureDesc'];?>"><br><br>
+        <label>Vælg dit billede</label><br>
+        <input name="file" type="file"><br>
+        <input type="hidden" name="profilePic" value="1" ><br>
+        <input name="submit" type="submit" class="waves-effect waves-light btn" value="Skift billede">
+        <p style="color:red;"><?=@$uploadError;?></p>
+    </form>
+    </div>
 </div>
+</div>
+
 <?php
 }else {
 ?>
@@ -185,19 +208,8 @@ if($_POST){
     <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
     <button type="submit">Anmod om venskab</button>
 </form>
+
 <?php
 }
-require './partials/footer.php';
-?>
 
-<script>
-/*var el = document.getElementById('deleteUser');
-
-el.addEventListener('submit', function(){
-  if(confirm('Are you sure you want to submit this form?')){
-
-  }else{
-    return false;
-  };
-}, false);*/
-</script>
+//require_once './partials/footer.php';

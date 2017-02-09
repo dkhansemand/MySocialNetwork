@@ -1,4 +1,4 @@
- <form action="" enctype="multipart/form-data" method="post">
+<!-- <form action="" enctype="multipart/form-data" method="post">
         <label>Title</label>
         <input type="text" name="title" placeholder="Title"><br>
         <label>Beskrivelse</label>
@@ -8,7 +8,7 @@
         <label>Profil billede: 
         <input type="checkbox" name="profilePic" value="1" id="profilePic"></label><br>
         <input name="submit" type="submit" value="Upload">
-    </form>
+    </form>-->
 
 
 
@@ -17,7 +17,7 @@ session_start();
 require "lib/class.mysql.php";
 if($_POST){
     if(!empty($_POST["title"]) && !empty($_POST["pictureDesc"]) && !empty($_FILES["file"])){
-
+         $_SESSION["upload"]["msg"] = '';
             if(preg_match('/^.*\.(jpg|jpeg|png|gif)$/i', $_FILES["file"]["name"])){
                 if($_FILES["file"]["size"] < 1536000 && $_FILES["file"]["error"] == 0){
                     $filename = date("dmyHisu") . $_FILES["file"]["name"];
@@ -28,31 +28,46 @@ if($_POST){
                     
                     $conn = new dbconnector();
 
-                    $query = $conn->newQuery("INSERT INTO pictures  (title, pictureDesc, filename, owner)  VALUES (:title, :pictureDesc, :filename, :owner) ");
+                    if($_POST["profilePic"] == 1){
+                        $query = $conn->newQuery("INSERT INTO pictures  (title, pictureDesc, filename, owner)  VALUES (:title, :pictureDesc, :filename, :owner);
+                                                UPDATE userdetails SET userdetails.ProfilePictureId = 
+                                                (SELECT id FROM pictures WHERE filename = :filename) 
+                                                WHERE userdetails.UserId = :owner;");
+                    }else{
+                        $query = $conn->newQuery("INSERT INTO pictures  (title, pictureDesc, filename, owner)  VALUES (:title, :pictureDesc, :filename, :owner) ");
+                    }
+
                     $query->bindParam(":title",$title);
                     $query->bindParam(":pictureDesc",$description);
                     $query->bindParam(":filename",$filename);
                     $query->bindParam(":owner",$_SESSION['id']);
 
                     if($query->execute()){
-                        echo "<div class='alert alert-success' role='alert'>Billede er korrekt lagt op</div>";
+                        $_SESSION["upload"]["msg"] = "<div class='alert alert-success' role='alert'>Billede er korrekt lagt op</div>";
+                        header('Location: editProfile.php?id='.$_SESSION["id"]);
                     }else{
-                        die("<div class='alert alert-danger' role='alert'>Det var ikke muligt at uplaod billede.</div>");
+                        $_SESSION["upload"]["msg"] = "<div class='alert alert-danger' role='alert'>Det var ikke muligt at uplaod billede.</div>";
+                        header('Location: editProfile.php?id='.$_SESSION["id"]);
                     }
-                    echo '<pre>';
+                    
                     if (move_uploaded_file($_FILES['file']['tmp_name'], $uploaddir . $filename)) {
-                        echo "File is valid, and was successfully uploaded.\n";
+                         $_SESSION["upload"]["msg"] = "Dit billede er nu uploaded.\n";
+                        header('Location: editProfile.php?id='.$_SESSION["id"]);
                     } else {
-                        echo "Possible file upload attack!\n";
+                         $_SESSION["upload"]["msg"] = "Possible file upload attack!\n";
+                         header('Location: editProfile.php?id='.$_SESSION["id"]);
                     }
                 }else{
-                    echo 'størrelse max 1.5MB';
+                    $_SESSION["upload"]["msg"] =  'størrelse max 1.5MB';
+                    header('Location: editProfile.php?id='.$_SESSION["id"]);
                 }
             }else{
-                echo 'Filtype er begrænset til .jpg, .jpeg, .png, .gif. ';
+                $_SESSION["upload"]["msg"] = 'Filtype er begrænset til .jpg, .jpeg, .png, .gif. ';
+                header('Location: editProfile.php?id='.$_SESSION["id"]);
             }
     }else{
-        echo 'Alle felter skal udfyldes';
+         $_SESSION["upload"]["msg"] = 'Alle felter skal udfyldes';
+         header('Location: editProfile.php?id='.$_SESSION["id"]);
     }
 }
 ?>

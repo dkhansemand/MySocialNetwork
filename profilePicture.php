@@ -1,0 +1,2 @@
+INSERT INTO pictures  (title, pictureDesc, filename, owner)  VALUES ('test', 'test desc', 'billede222.jpg', '6');
+UPDATE userdetails SET userdetails.ProfilePictureId = (SELECT id FROM pictures WHERE filename = 'billede222.jpg') WHERE userdetails.UserId = 6;
