@@ -204,13 +204,7 @@ if($_POST){
 
 <?php
 }else {
-?>
-<form action="friendRequest.php" method="post">
-    <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
-    <button type="submit">Anmod om venskab</button>
-</form>
-
-<?php
+    header('Location: ./');
 }
 
 //require_once './partials/footer.php';
