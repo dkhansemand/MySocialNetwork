@@ -33,7 +33,7 @@ require_once './lib/class.mysql.php';
       </ul>
        <form action="search.php" method="post" class="right">
         <div class="input-field">
-          <input id="search" type="search" name="searchInput" required>
+          <input id="search" type="search" name="searchInput" placeholder="Søg..." required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
