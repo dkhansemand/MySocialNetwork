@@ -1,4 +1,3 @@
-
 <?php
 require './partials/header.php';
 
@@ -159,29 +158,46 @@ if($_POST){
         <label>Alder</label>
         <input type="number" name="age" max="99" value="<?=$userDetail['age'];?>"><br>
         <p style="color: red;"><?=@$errAge;?></p>
-        <label>Køn</label>
-        <select name="gender" autofocus="<?=$userDetail['gender'];?>">
+        <div class="row">
+         <div class="input-field col s12">
+            <select name="gender">
             <option value="Male">Mand</option>
             <option value="Female">Kvinde</option>
             <option value="Other">Andet</option>
-        </select><br>
+            </select>
+            <label>Køn</label>
+        </div>
+        </div>
+        <br>
         <label>By</label>
         <input type="text" name="city" placeholder="By" value="<?=$userDetail['city'];?>"><br>
         <p style="color: red;"><?=@$errCity;?></p>
         <label>Land</label>
         <input type="text" name="country" placeholder="Land" value="<?=$userDetail['country'];?>"><br>
         <p style="color: red;"><?=@$errCountry;?></p>
-        <label>Profil tekst</label><br>
-        <textarea rows="15" cols="30" name="profileText"><?=$userDetail['profileText'];?></textarea><br>
-        <p style="color: red;"><?=@$errProfiletext;?></p>
+
+           
+            <div class="row">
+                <div class="input-field col s12">
+                <label for="textarea1">Profil tekst</label>
+                <textarea id="textarea1" class="materialize-textarea" name="profileText"><?=$userDetail['profileText'];?></textarea>
+                </div>
+                <p style="color: red;"><?=@$errProfiletext;?></p>
+            </div>
+<div class="row">
+                <div class="input-field col s12">
         <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
         <button type="submit" class="waves-effect waves-light btn">Gem</button>
+        </div></div>
     </form>
-    <br>
+
+    <div class="row">
     <form action="deleteUser.php" method="post" id="deleteUser">
         <input type="hidden" name="userId" value="<?=$userDetail['user_ID'];?>">
         <button type="submit" onclick="return confirm('Er du helt sikker?')" class="waves-effect waves-light btn red">Slet bruger</button>
     </form>
+    </div>
+    <br>
     </div>
     <div class="col s2 m2 offset-s1 offset-m1">
     <img src="uploads/<?=$userDetail['profilePicture'];?>" alt="<?=$userDetail['pictureTitle'];?>" title="<?=$userDetail['pictureTitle'];?>" height="250" width="250">
@@ -201,7 +217,11 @@ if($_POST){
     </div>
 </div>
 </div>
-
+<script>
+ $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
 <?php
 }else {
     header('Location: ./');
