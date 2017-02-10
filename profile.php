@@ -57,6 +57,7 @@ if($_GET){
             ?>
           </div>
         </div>
+         <?php require 'posts.php'; ?>
       </div>
 
 <?php
