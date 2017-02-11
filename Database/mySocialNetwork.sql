@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 09. 02 2017 kl. 20:12:03
+-- Genereringstid: 11. 02 2017 kl. 13:28:43
 -- Serverversion: 5.6.24
 -- PHP-version: 5.6.8
 
@@ -19,18 +19,13 @@ SET time_zone = "+00:00";
 --
 -- Database: `mysocialnetwork`
 --
-CREATE DATABASE IF NOT EXISTS `mysocialnetwork` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `mysocialnetwork`;
 
 -- --------------------------------------------------------
 
 --
 -- Struktur-dump for tabellen `friends`
 --
--- Oprettelse: 09. 02 2017 kl. 19:06:31
---
 
-DROP TABLE IF EXISTS `friends`;
 CREATE TABLE IF NOT EXISTS `friends` (
   `Id` int(11) NOT NULL,
   `RequestDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -38,26 +33,23 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `RelationStatus` varchar(45) DEFAULT NULL,
   `UserOneId` int(11) NOT NULL,
   `UserTwoId` int(11) NOT NULL,
-  `ConfirmDate` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ConfirmDate` datetime DEFAULT NULL,
+  `Action_userId` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- RELATIONS FOR TABLE (Relationer for tabellen) `friends`:
---   `UserOneId`
---       `users` -> `Id`
---   `UserTwoId`
---       `users` -> `Id`
+-- Data dump for tabellen `friends`
 --
+
+INSERT INTO `friends` (`Id`, `RequestDate`, `StatusConfirm`, `RelationStatus`, `UserOneId`, `UserTwoId`, `ConfirmDate`, `Action_userId`) VALUES
+(3, '2017-02-10 12:46:30', 1, NULL, 3, 4, '2017-02-10 13:18:09', 4);
 
 -- --------------------------------------------------------
 
 --
 -- Struktur-dump for tabellen `pictures`
 --
--- Oprettelse: 09. 02 2017 kl. 19:07:05
---
 
-DROP TABLE IF EXISTS `pictures`;
 CREATE TABLE IF NOT EXISTS `pictures` (
   `Id` int(11) NOT NULL,
   `Filename` varchar(128) NOT NULL,
@@ -65,54 +57,38 @@ CREATE TABLE IF NOT EXISTS `pictures` (
   `PictureDesc` text,
   `Owner` int(11) DEFAULT NULL,
   `DateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- RELATIONS FOR TABLE (Relationer for tabellen) `pictures`:
---   `Owner`
---       `users` -> `Id`
---
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Data dump for tabellen `pictures`
 --
 
 INSERT INTO `pictures` (`Id`, `Filename`, `Title`, `PictureDesc`, `Owner`, `DateAdded`) VALUES
-(1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', NULL, '2017-02-09 20:05:40');
+(1, 'avatar.jpg', 'Default Profile picture', 'Profile picture', NULL, '2017-02-09 20:05:40'),
+(2, '10021711043400000066136966.jpg', 'Default Profile picture', 'Profile picture', 4, '2017-02-10 11:04:34');
 
 -- --------------------------------------------------------
 
 --
 -- Struktur-dump for tabellen `posts`
 --
--- Oprettelse: 09. 02 2017 kl. 19:07:30
---
 
-DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `Id` int(11) NOT NULL,
   `DateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DateModified` datetime DEFAULT NULL,
   `Title` varchar(45) NOT NULL,
   `SubmittedBy` int(11) NOT NULL,
-  `Post` text NOT NULL
+  `Post` text NOT NULL,
+  `PostPicture` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELATIONS FOR TABLE (Relationer for tabellen) `posts`:
---   `SubmittedBy`
---       `userdetails` -> `UserId`
---
 
 -- --------------------------------------------------------
 
 --
 -- Struktur-dump for tabellen `userdetails`
 --
--- Oprettelse: 09. 02 2017 kl. 19:05:39
---
 
-DROP TABLE IF EXISTS `userdetails`;
 CREATE TABLE IF NOT EXISTS `userdetails` (
   `Id` int(11) NOT NULL,
   `ProfileText` text,
@@ -128,54 +104,44 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `Country` varchar(45) DEFAULT NULL,
   `ProfilePictureId` int(11) DEFAULT NULL,
   `UserId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- RELATIONS FOR TABLE (Relationer for tabellen) `userdetails`:
---   `ProfilePictureId`
---       `pictures` -> `Id`
---   `UserId`
---       `users` -> `Id`
---
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Data dump for tabellen `userdetails`
 --
 
 INSERT INTO `userdetails` (`Id`, `ProfileText`, `Firstname`, `Surname`, `Age`, `DateCreated`, `Gender`, `Status`, `Employment`, `Hobbies`, `City`, `Country`, `ProfilePictureId`, `UserId`) VALUES
-(1, NULL, NULL, NULL, NULL, '2017-02-09 20:05:40', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+(1, NULL, NULL, NULL, NULL, '2017-02-09 20:05:40', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(3, NULL, NULL, NULL, NULL, '2017-02-10 08:01:22', NULL, NULL, NULL, NULL, NULL, NULL, 1, 3),
+(4, NULL, NULL, NULL, NULL, '2017-02-10 11:03:45', NULL, NULL, NULL, NULL, NULL, NULL, 2, 4),
+(5, NULL, NULL, NULL, NULL, '2017-02-10 12:52:55', NULL, NULL, NULL, NULL, NULL, NULL, 1, 5);
 
 -- --------------------------------------------------------
 
 --
 -- Struktur-dump for tabellen `users`
 --
--- Oprettelse: 09. 02 2017 kl. 19:05:39
---
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `Id` int(11) NOT NULL,
   `Username` varchar(64) NOT NULL,
   `Email` varchar(128) NOT NULL,
   `Password` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- RELATIONS FOR TABLE (Relationer for tabellen) `users`:
---
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Data dump for tabellen `users`
 --
 
 INSERT INTO `users` (`Id`, `Username`, `Email`, `Password`) VALUES
-(1, 'System', 'admin@system.dk', '1234root');
+(1, 'System', 'admin@system.dk', '1234root'),
+(3, 'test', 'test@test.dk', '$2y$10$jfUfwAvz32/LEbc2S/PupeezO5tZU8Mh5JpT3lkEACCC9cKiuTTxe'),
+(4, 'admin', 'admin@admin.dk', '$2y$10$DoiUBdQfqNQjKumHyLoZGeR0vXuW.GDS99B2ZCubQuf3h7ySk2VsG'),
+(5, 'hejsa', 'hejsa@hej.dk', '$2y$10$FYUZ.QbAW.LeQym5pFALaOZ0vgtV7PuiMf1/4xzmvzIrT1GA.bMnK');
 
 --
 -- Triggers/udløsere `users`
 --
-DROP TRIGGER IF EXISTS `users_AFTER_INSERT`;
 DELIMITER $$
 CREATE TRIGGER `users_AFTER_INSERT` AFTER INSERT ON `users`
  FOR EACH ROW BEGIN
@@ -192,7 +158,7 @@ DELIMITER ;
 -- Indeks for tabel `friends`
 --
 ALTER TABLE `friends`
-  ADD PRIMARY KEY (`Id`), ADD UNIQUE KEY `UserOneId_UNIQUE` (`UserOneId`), ADD UNIQUE KEY `UserTwoId_UNIQUE` (`UserTwoId`), ADD KEY `fk_FriendOne_idx` (`UserOneId`), ADD KEY `fk_FriendTwo_idx` (`UserTwoId`);
+  ADD PRIMARY KEY (`Id`), ADD UNIQUE KEY `UserOneId_UNIQUE` (`UserOneId`), ADD UNIQUE KEY `UserTwoId_UNIQUE` (`UserTwoId`), ADD KEY `fk_FriendOne_idx` (`UserOneId`), ADD KEY `fk_FriendTwo_idx` (`UserTwoId`), ADD KEY `fk_UserAction_idx` (`Action_userId`);
 
 --
 -- Indeks for tabel `pictures`
@@ -204,7 +170,7 @@ ALTER TABLE `pictures`
 -- Indeks for tabel `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`Id`), ADD KEY `fk_post_user_idx` (`SubmittedBy`);
+  ADD PRIMARY KEY (`Id`), ADD KEY `fk_post_user_idx` (`SubmittedBy`), ADD KEY `fk_post_picture_idx` (`PostPicture`);
 
 --
 -- Indeks for tabel `userdetails`
@@ -226,12 +192,12 @@ ALTER TABLE `users`
 -- Tilføj AUTO_INCREMENT i tabel `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Tilføj AUTO_INCREMENT i tabel `pictures`
 --
 ALTER TABLE `pictures`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Tilføj AUTO_INCREMENT i tabel `posts`
 --
@@ -241,12 +207,12 @@ ALTER TABLE `posts`
 -- Tilføj AUTO_INCREMENT i tabel `userdetails`
 --
 ALTER TABLE `userdetails`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Tilføj AUTO_INCREMENT i tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Begrænsninger for dumpede tabeller
 --
@@ -256,7 +222,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `friends`
 ADD CONSTRAINT `fk_FriendOne` FOREIGN KEY (`UserOneId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_FriendTwo` FOREIGN KEY (`UserTwoId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_FriendTwo` FOREIGN KEY (`UserTwoId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_userAction` FOREIGN KEY (`Action_userId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Begrænsninger for tabel `pictures`
@@ -268,6 +235,7 @@ ADD CONSTRAINT `fk_Pictures_Users1` FOREIGN KEY (`Owner`) REFERENCES `users` (`I
 -- Begrænsninger for tabel `posts`
 --
 ALTER TABLE `posts`
+ADD CONSTRAINT `fk_post_picture` FOREIGN KEY (`PostPicture`) REFERENCES `pictures` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_post_user` FOREIGN KEY (`SubmittedBy`) REFERENCES `userdetails` (`UserId`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --

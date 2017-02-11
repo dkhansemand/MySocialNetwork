@@ -53,6 +53,12 @@ if($_GET){
               <a class="waves-effect waves-light btn" href="editProfile.php?id=<?=$_SESSION['id'];?>">Rediger profil</a>
             </div>
             <?php
+              }else{
+                ?>
+                  <div class="card-action">
+                    <a class="waves-effect waves-light btn" href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&add">Anmod on venskab</a>
+                  </div>
+                <?php
               }
             ?>
           </div>

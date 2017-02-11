@@ -1,38 +1,24 @@
 <?php
-
+session_start();
+require './lib/class.mysql.php';
 $connFriend = new dbconnector();
-$queryFriend = $connFriend->newQuery("SELECT 
-        friends.Id AS requestId, DATE_FORMAT(friends.RequestDate, '%d-%m-%Y %h:%i:%s') AS dateRequest, friends.StatusConfirm,
-        friends.UserOneId, friends.UserTwoId,  DATE_FORMAT(friends.ConfirmDate, '%d-%m-%Y %h:%i:%s') AS dateConfirm,
-        userDetails.firstname, userDetails.surname, 
-        userdetails.ProfilePictureId,
-        pictures.filename AS profilePicture, pictures.title AS pictureTitle
-        FROM `friends` 
-        INNER JOIN userdetails ON userdetails.UserId = friends.UserTwoId
-        INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id");
-        //$queryFriend->bindParam(":ID", $_GET["id"], PDO::PARAM_STR);
+$queryFriend = $connFriend->newQuery("SELECT * FROM `friends`
+                                        WHERE (`userOneId` = :ID OR `userTwoId` = :ID)
+                                        AND `statusConfirm` = 0
+                                        AND `Action_userId` != :ID");
+        $queryFriend->bindParam(":ID", $_SESSION["id"], PDO::PARAM_STR);
         if($queryFriend->execute() && $queryFriend->rowCount() > 0){
             while($friends = $queryFriend->fetch(PDO::FETCH_ASSOC)){
-                /*echo '<pre>';
-                print_r($friends);
-                echo '</pre>';*/
-
-                if($friends["StatusConfirm"] == 0){
+                echo '<pre>';
+                var_dump($friends);
+                echo '</pre>';
                 ?>
-                    Anmodning om venskab fra 
-                    <p>
-                    <?=$friends["firstname"]?>&nbsp;<?=$friends["surname"]?> <a href="friendRequest.php?id=<?=$friends["requestId"]?>&confirm">Bekræft</a> 
-                    - <a href="friendRequest.php?id=<?=$friends["requestId"]?>&ignore">Ignorér</a> 
-                    </p>
+                <a href="friendRequest.php?id=<?=$friends['Action_userId']?>&accept">Accepter</a>
+                -
+                <a href="friendRequest.php?id=<?=$friends['Action_userId']?>&ignore">Fjern</a>
                 <?php
-                }elseif($friends["StatusConfirm"] == 1){
-                ?>
-                <p>
-                    Ven - <?=$friends["firstname"]?>&nbsp;<?=$friends["surname"]?> (Blev venner - <?=$friends["dateConfirm"]?>)
-                </p>
-                <?php
-                }
+              
             }
         }else{
-            echo 'Ingen anmodninger/Venner';
+            echo 'Ingen venne anmodninger';
         }

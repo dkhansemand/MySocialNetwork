@@ -227,4 +227,4 @@ if($_POST){
     header('Location: ./');
 }
 
-//require_once './partials/footer.php';
+require_once './partials/footer.php';

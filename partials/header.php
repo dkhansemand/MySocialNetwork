@@ -33,6 +33,7 @@ require_once './lib/class.mysql.php';
       <a href="#!" class="brand-logo left">My Social Network</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="./">Startside</a></li>
+        <li><a href="showUsers.php">Se brugere</a></li>
         <li><a href="logout.php">Log ud</a></li>
       </ul>
        <form action="search.php" method="post" class="right">
@@ -45,3 +46,4 @@ require_once './lib/class.mysql.php';
     </div>
   </nav>
 </header>
+<div class="row">
