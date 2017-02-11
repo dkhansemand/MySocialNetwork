@@ -49,10 +49,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
 
 
 ##List all friends
-$queryFriends = $conn->newQuery("SELECT friends.*
-                                   
-                                    FROM `friends`
-                                    
+$queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FROM `friends`
                                     WHERE (friends.userOneId = :ID OR friends.userTwoId = :ID)
                                     AND friends.statusConfirm = 1");
 
@@ -62,22 +59,39 @@ $queryFriends = $conn->newQuery("SELECT friends.*
                 <h2>Venner:</h2>
                 <?php
                     while($friends = $queryFriends->fetch(PDO::FETCH_ASSOC)){
-                        echo '<pre>';
+                        /*echo '<pre>';
                         var_dump($friends);
-                        echo '</pre>';
-                        /*
+                        echo '</pre>';*/
+
+                        if($_SESSION["id"] != $friends["UserOneId"]){
+                            $profileId = $friends["UserOneId"];
+                        }elseif($_SESSION["id"] != $friends["UserTwoId"]){
+                            $profileId = $friends["UserTwoId"];
+                        }
+                       
+                        $getDetails = $conn->newQuery("SELECT userdetails.firstname, userdetails.surname, pictures.filename AS profilePicture
+                                                            FROM userdetails
+                                                            INNER JOIN pictures ON userdetails.profilePictureId = pictures.id
+                                                            WHERE userdetails.userId = :USERID");
+                                        $getDetails->bindParam(":USERID", $profileId);
+                                        $getDetails->execute();
+                                        $friendDetails = $getDetails->fetch(PDO::FETCH_ASSOC);
+                                       /* echo '<strong><pre>';
+                                        var_dump($friendDetails);
+                                        echo '</pre></strong>';*/
+                        
                         ?>
                         <div class="col s6 m4">
                             <div class="card horizontal">
                             <div class="card-image">
-                                <img src="uploads/<?=$friends['profilePicture'];?>" height="110" width="110">
+                                <img src="uploads/<?=$friendDetails['profilePicture'];?>" height="110" width="110">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                <p><?=$friends["firstname"];?>&nbsp;<?=$friends["surname"];?></p>
+                                <p><?=$friendDetails["firstname"];?>&nbsp;<?=$friendDetails["surname"];?></p>
                                 </div>
                                 <div class="card-action">
-                                <a href="./?profileId=<?=$friends['Action_userId']?>">Se profil</a>
+                                <a href="./?profileId=<?=$profileId?>">Se profil</a>
                                
                                 </div>
                             </div>
@@ -85,7 +99,7 @@ $queryFriends = $conn->newQuery("SELECT friends.*
                         </div>
 
                         <?php
-                        */
+                        
                     }
                     $conn = null;
                 }else{
