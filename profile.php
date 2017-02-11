@@ -20,10 +20,12 @@ if($_GET){
         userDetails.firstname, userDetails.surname, userDetails.age, userDetails.gender,
         userDetails.city, userDetails.country, userDetails.profileText,
         DATE_FORMAT(userdetails.DateCreated, '%d-%m-%Y %h:%i:%s') AS dateCreated, userdetails.ProfilePictureId,
-        pictures.filename AS profilePicture, pictures.title AS pictureTitle
+        pictures.filename AS profilePicture, pictures.title AS pictureTitle,
+        friends.StatusConfirm AS isFriends
         FROM `users` 
         INNER JOIN userdetails ON users.id = userdetails.UserId AND users.id = :ID
-        INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id");
+        INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id
+        LEFT JOIN friends ON friends.UserOneId = :ID OR friends.UserTwoId = :ID");
         $query->bindParam(':ID', $userid, PDO::PARAM_STR);
         if($query->execute() && $query->rowCount() > 0){
             $userDetail = $query->fetch(PDO::FETCH_ASSOC);
@@ -56,11 +58,20 @@ if($_GET){
               }else{
                 ?>
                   <div class="card-action">
+                  <?php
+                    if($userDetail["isFriends"] != 1){
+
+                  ?>
                     <a class="waves-effect waves-light btn" href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&add">Anmod on venskab</a>
-                  </div>
+                    <?php
+                      }else{
+                    ?>
+                    <a href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&removeFriend">Fjern ven</a>
                 <?php
+                    }
               }
             ?>
+                  </div>
           </div>
         </div>
          <?php require 'posts.php'; ?>
