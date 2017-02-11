@@ -25,11 +25,15 @@ if($_GET){
         FROM `users` 
         INNER JOIN userdetails ON users.id = userdetails.UserId AND users.id = :ID
         INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id
-        LEFT JOIN friends ON friends.UserOneId = :ID OR friends.UserTwoId = :ID");
+        LEFT JOIN friends ON (friends.UserOneId = :ID AND friends.UserTwoId = :SESSIONID) OR (friends.UserOneId = :SESSIONID AND friends.UserTwoId = :ID)");
         $query->bindParam(':ID', $userid, PDO::PARAM_STR);
+        $query->bindParam(':SESSIONID', $_SESSION["id"], PDO::PARAM_STR);
         if($query->execute() && $query->rowCount() > 0){
             $userDetail = $query->fetch(PDO::FETCH_ASSOC);
             $conn = null;
+            /*echo '<pre>';
+            var_dump($userDetail);
+            echo '</pre><br>';*/
 ?>
  
         <div class="col s5 m4">

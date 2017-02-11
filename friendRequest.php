@@ -40,6 +40,7 @@ if($_GET){
         if($query->execute()){
             echo 'Du har anmodet ' . $_GET["id"] . ' om venskab.';
             $conn = null;
+            header('Location: ./?profileId=' . $_GET["id"]);
            
         }else{
             echo 'Anmodning allerede sendt til bruger.';
