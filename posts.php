@@ -47,8 +47,9 @@ if($query->execute() && $query->rowCount() > 0){
 }
 $conn = null;
 }else{ ?>
+</div>
     <div class="col s5 m4">
-                <div class="card">
+                <div class="card horizontal">
                     <div class="card-content">
                         <p>Der er ingen posts at vise.</p>
                     </div>
