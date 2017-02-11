@@ -34,7 +34,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
                         </div>
                         <div class="card-action">
                         <a href="friendRequest.php?id=<?=$requests['Action_userId']?>&accept">Accepter</a>
-                        <a href="friendRequest.php?id=<?=$requests['Action_userId']?>&ignore">Fjern</a>
+                        <a href="friendRequest.php?id=<?=$requests['Action_userId']?>&removeReq">Fjern</a>
                         </div>
                     </div>
                     </div>
@@ -92,7 +92,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                                 </div>
                                 <div class="card-action">
                                 <a href="./?profileId=<?=$profileId?>">Se profil</a>
-                               
+                               <a href="friendRequest.php?id=<?=$profileId;?>&remove">Fjern ven</a>
                                 </div>
                             </div>
                             </div>

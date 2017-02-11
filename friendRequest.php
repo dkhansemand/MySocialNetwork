@@ -22,7 +22,7 @@ if($_GET){
             echo 'venskab accepteret.';
             header('Location: ./friends.php');
         }
-    }elseif(!empty($_GET["id"]) && isset($_GET["ignore"])){
+    }elseif(!empty($_GET["id"]) && isset($_GET["removeReq"])){
         $conn = new dbconnector();
         $query = $conn->newQuery("DELETE FROM friends WHERE friends.userOneId = :ID AND friends.userTwoId = :USERTWO");
         $query->bindParam(":USERTWO", $_SESSION["id"], PDO::PARAM_STR);
