@@ -16,6 +16,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
         $queryRequests->bindParam(":ID", $_SESSION["id"], PDO::PARAM_STR);
         if($queryRequests->execute() && $queryRequests->rowCount() > 0){
             ?>
+            <div class="row">
             <h2>Anmodninger:</h2>
             <?php
             while($requests = $queryRequests->fetch(PDO::FETCH_ASSOC)){
@@ -39,7 +40,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
                     </div>
                     </div>
                 </div>
-
+</div>
                 <?php
               
             }
@@ -56,6 +57,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                 $queryFriends->bindParam(":ID", $_SESSION["id"], PDO::PARAM_STR);
                 if($queryFriends->execute() && $queryFriends->rowCount() > 0){
                 ?>
+                <div class="row">
                 <h2>Venner:</h2>
                 <?php
                     while($friends = $queryFriends->fetch(PDO::FETCH_ASSOC)){
@@ -69,9 +71,11 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                             $profileId = $friends["UserTwoId"];
                         }
                        
-                        $getDetails = $conn->newQuery("SELECT userdetails.firstname, userdetails.surname, pictures.filename AS profilePicture
+                        $getDetails = $conn->newQuery("SELECT userdetails.firstname, userdetails.surname, pictures.filename AS profilePicture,
+                                                            users.username
                                                             FROM userdetails
                                                             INNER JOIN pictures ON userdetails.profilePictureId = pictures.id
+                                                            INNER JOIN users ON users.id = :USERID
                                                             WHERE userdetails.userId = :USERID");
                                         $getDetails->bindParam(":USERID", $profileId);
                                         $getDetails->execute();
@@ -88,7 +92,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                <p><?=$friendDetails["firstname"];?>&nbsp;<?=$friendDetails["surname"];?></p>
+                                <p><?=$friendDetails["firstname"];?>&nbsp;<?=$friendDetails["surname"];?> - (<?=$friendDetails["username"];?>)</p>
                                 </div>
                                 <div class="card-action">
                                 <a href="./?profileId=<?=$profileId?>">Se profil</a>
@@ -97,7 +101,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                             </div>
                             </div>
                         </div>
-
+</div>
                         <?php
                         
                     }
