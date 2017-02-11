@@ -59,15 +59,20 @@ if($_GET){
                 ?>
                   <div class="card-action">
                   <?php
-                    if($userDetail["isFriends"] != 1){
-
+                    if($userDetail["isFriends"] == ''){
+                     
                   ?>
-                    <a class="waves-effect waves-light btn" href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&add">Anmod on venskab</a>
+                        <a class="waves-effect waves-light btn" href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&add">Anmod om venskab</a>
                     <?php
-                      }else{
+                      }elseif($userDetail["isFriends"] == 0){
                     ?>
-                    <a href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&removeFriend">Fjern ven</a>
+                    <a class="waves-effect waves-light btn disabled" href="#">Anmodning sendt</a>
                 <?php
+                    }elseif($userDetail["isFriends"] == 1){
+                      ?>
+                    <a href="friendRequest.php?id=<?=$userDetail['user_ID'];?>&removeFriend">Fjern ven</a>
+                      <?php
+
                     }
               }
             ?>
