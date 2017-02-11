@@ -6,9 +6,11 @@ $conn = new dbconnector();
 
 ##List all friends requests
 $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusConfirm,
-                                    userdetails.firstname, userdetails.surname, pictures.filename AS profilePicture
+                                    userdetails.firstname, userdetails.surname, pictures.filename AS profilePicture,
+                                    users.username
                                     FROM `friends`
                                     INNER JOIN userdetails ON friends.Action_userId = userdetails.UserId
+                                    INNER JOIN users ON userdetails.UserId = users.id
                                     INNER JOIN pictures ON userdetails.profilePictureId = pictures.id
                                     WHERE (friends.userOneId = :ID OR friends.userTwoId = :ID)
                                     AND friends.statusConfirm = 0
@@ -31,7 +33,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
                     </div>
                     <div class="card-stacked">
                         <div class="card-content">
-                        <p><?=$requests["firstname"];?>&nbsp;<?=$requests["surname"];?></p>
+                        <p><?=$requests["firstname"];?>&nbsp;<?=$requests["surname"];?>  - (<?=$requests["username"];?>)</p>
                         </div>
                         <div class="card-action">
                         <a href="friendRequest.php?id=<?=$requests['Action_userId']?>&accept">Accepter</a>
@@ -96,7 +98,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                                 </div>
                                 <div class="card-action">
                                 <a href="./?profileId=<?=$profileId?>">Se profil</a>
-                               <a href="friendRequest.php?id=<?=$profileId;?>&remove">Fjern ven</a>
+                               <a href="friendRequest.php?id=<?=$profileId;?>&removeFriend">Fjern ven</a>
                                 </div>
                             </div>
                             </div>

@@ -40,9 +40,25 @@ if($_GET){
         if($query->execute()){
             echo 'Du har anmodet ' . $_GET["id"] . ' om venskab.';
             $conn = null;
+           
         }else{
             echo 'Anmodning allerede sendt til bruger.';
         }
+    }elseif(!empty($_GET["id"]) && isset($_GET["removeFriend"])){
+         $conn = new dbconnector();
+        $query = $conn->newQuery("DELETE FROM friends WHERE
+                                (friends.userOneId = :USERONE AND friends.userTwoId = :USERTWO)
+                                 OR 
+                                (friends.UserOneId = :USERTWO AND friends.UserTwoId = :USERONE)
+                                 AND friends.StatusConfirm = 1");
+        $query->bindParam(":USERONE", $_SESSION["id"], PDO::PARAM_STR);
+        $query->bindParam(":USERTWO", $_GET["id"], PDO::PARAM_STR);
+        if($query->execute()){
+            echo 'venskab fjernet.';
+            $conn = null;
+             header('Location: ./friends.php');
+        }
+        
     }
 }
 
