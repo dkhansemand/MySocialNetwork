@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 11. 02 2017 kl. 13:28:43
+-- Genereringstid: 11. 02 2017 kl. 16:24:34
 -- Serverversion: 5.6.24
 -- PHP-version: 5.6.8
 
@@ -35,14 +35,15 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `UserTwoId` int(11) NOT NULL,
   `ConfirmDate` datetime DEFAULT NULL,
   `Action_userId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Data dump for tabellen `friends`
 --
 
 INSERT INTO `friends` (`Id`, `RequestDate`, `StatusConfirm`, `RelationStatus`, `UserOneId`, `UserTwoId`, `ConfirmDate`, `Action_userId`) VALUES
-(3, '2017-02-10 12:46:30', 1, NULL, 3, 4, '2017-02-10 13:18:09', 4);
+(11, '2017-02-11 15:55:02', 1, NULL, 4, 5, '2017-02-11 15:55:17', 5),
+(17, '2017-02-11 16:20:15', 0, NULL, 4, 3, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -158,7 +159,7 @@ DELIMITER ;
 -- Indeks for tabel `friends`
 --
 ALTER TABLE `friends`
-  ADD PRIMARY KEY (`Id`), ADD UNIQUE KEY `UserOneId_UNIQUE` (`UserOneId`), ADD UNIQUE KEY `UserTwoId_UNIQUE` (`UserTwoId`), ADD KEY `fk_FriendOne_idx` (`UserOneId`), ADD KEY `fk_FriendTwo_idx` (`UserTwoId`), ADD KEY `fk_UserAction_idx` (`Action_userId`);
+  ADD PRIMARY KEY (`Id`), ADD UNIQUE KEY `unique_friends_id` (`UserOneId`,`UserTwoId`), ADD KEY `fk_FriendOne_idx` (`UserOneId`), ADD KEY `fk_FriendTwo_idx` (`UserTwoId`), ADD KEY `fk_UserAction_idx` (`Action_userId`);
 
 --
 -- Indeks for tabel `pictures`
@@ -192,7 +193,7 @@ ALTER TABLE `users`
 -- Tilføj AUTO_INCREMENT i tabel `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- Tilføj AUTO_INCREMENT i tabel `pictures`
 --
