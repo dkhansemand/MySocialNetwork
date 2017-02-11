@@ -49,11 +49,10 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
 
 
 ##List all friends
-$queryFriends = $conn->newQuery("SELECT friends.Action_userId, friends.statusConfirm,
-                                    userdetails.firstname, userdetails.surname, pictures.filename AS profilePicture
+$queryFriends = $conn->newQuery("SELECT friends.*
+                                   
                                     FROM `friends`
-                                    INNER JOIN userdetails ON friends.Action_userId = userdetails.UserId
-                                    INNER JOIN pictures ON userdetails.profilePictureId = pictures.id
+                                    
                                     WHERE (friends.userOneId = :ID OR friends.userTwoId = :ID)
                                     AND friends.statusConfirm = 1");
 
@@ -63,9 +62,10 @@ $queryFriends = $conn->newQuery("SELECT friends.Action_userId, friends.statusCon
                 <h2>Venner:</h2>
                 <?php
                     while($friends = $queryFriends->fetch(PDO::FETCH_ASSOC)){
-                        /*echo '<pre>';
+                        echo '<pre>';
                         var_dump($friends);
-                        echo '</pre>';*/
+                        echo '</pre>';
+                        /*
                         ?>
                         <div class="col s6 m4">
                             <div class="card horizontal">
@@ -85,6 +85,7 @@ $queryFriends = $conn->newQuery("SELECT friends.Action_userId, friends.statusCon
                         </div>
 
                         <?php
+                        */
                     }
                     $conn = null;
                 }else{
