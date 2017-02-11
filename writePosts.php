@@ -14,10 +14,10 @@ if ($_POST){
                             VALUES 
                             (:Title, :Post, :SubmittedBy, (SELECT id FROM pictures WHERE filename = '$filename'))";
                     if (move_uploaded_file($_FILES['file']['tmp_name'], $uploaddir . $filename)) {
-                        $_SESSION["upload"]["msg"] = "Dit billede er nu uploaded.\n";
+                        $_SESSION["postpost"]["msg"] = "Dit billede er nu uploaded.\n";
                        
                     } else {
-                        $_SESSION["upload"]["msg"] = "Possible file upload attack!\n";
+                        $_SESSION["postpost"]["msg"] = "Possible file upload attack!\n";
                         header('Location: ./');
                     }
                 }
