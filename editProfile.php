@@ -133,10 +133,14 @@ if($_POST){
 
 
     if($_GET["id"] == $_SESSION['id']){
-       /* require_once 'friends.php';*/
+      
        if(isset($_SESSION["upload"]["msg"])){
             $uploadError = $_SESSION["upload"]["msg"];
             $_SESSION["upload"]["msg"] = '';
+       }
+       if(isset($_SESSION["password"]["msg"])){
+            $passwordErr = $_SESSION["password"]["msg"];
+            $_SESSION["password"]["msg"] = '';
        }
 ?>
 <div class="row"></div>
@@ -213,6 +217,17 @@ if($_POST){
         <input type="hidden" name="profilePic" value="1" ><br>
         <input name="submit" type="submit" class="waves-effect waves-light btn" value="Skift billede">
         <p style="color:red;"><?=@$uploadError;?></p>
+    </form>
+    </div>
+    <div class="col s2 m2 offset-s1 offset-m1">
+    <p>Skift password:</p>
+    <form action="changePassword.php" method="post">
+        <label for="">Nyt password</label>
+        <input type="password" name="passwordOne" placeholder="Password" required><br>
+        <label for="">Gentag password</label>
+        <input type="password" name="passwordTwo" placeholder="Gentag password" required><br>
+        <button type="submit" class="waves-effect waves-light btn">Skift</button>
+         <p style="color:red;"><?=@$passwordErr;?></p>
     </form>
     </div>
 </div>
