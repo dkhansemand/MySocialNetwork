@@ -20,6 +20,7 @@ if($_GET){
         if($query->execute()){
             $conn = null;
             echo 'venskab accepteret.';
+            header('Location: ./friends.php');
         }
     }elseif(!empty($_GET["id"]) && isset($_GET["ignore"])){
         $conn = new dbconnector();
@@ -29,6 +30,7 @@ if($_GET){
         if($query->execute()){
             $conn = null;
             echo 'Anmodning fjernet.';
+            header('Location: ./friends.php');
         }
     }elseif(!empty($_GET["id"]) && isset($_GET["add"])){
         $conn = new dbconnector();
