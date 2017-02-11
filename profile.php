@@ -78,14 +78,19 @@ if($_GET){
             ?>
                   </div>
           </div>
- 
-         <?php require 'writePosts.php';?>
+         <?php
+         if($userid == $_SESSION["id"]){
+          require 'writePosts.php';
+         }
+          ?>
          <?php require 'posts.php';?>
+          </div>
     
 
 <?php
         }else{
             echo 'Bruger findes ikke';
         }
+        require './partials/footer.php';
 ?>
 

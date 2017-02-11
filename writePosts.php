@@ -63,18 +63,15 @@ if (isset($_SESSION['postpost']["msg"])){
 <script>tinymce.init({ selector:'textarea' });</script>
     <div class="col s12 m6">
         <div class="card">
-            <div class="card-image">
-                <p style="color:red;"><?=@$postUploadError;?></p>
-                <form action="writePosts.php" method="post" enctype="multipart/form-data">
-                    <label>Titel</label>
-                    <input type="text" name="title" placeholder="Overskrift"><br> 
-                    <label>Upload et billede til din post:</label>
-                    <input type="file" name="file">
-                    
-                    <textarea name="post" id="post" placeholder="Skriv din besked her..." cols="30" rows="10"></textarea>
-                    <button type="submit" class="waves-effect waves-light btn">Post din besked</button>
-                </form>
-
-            </div>
+            <p style="color:red;"><?=@$postUploadError;?></p>
+            <form action="writePosts.php" method="post" enctype="multipart/form-data">
+                <label>Titel</label>
+                <input type="text" name="title" placeholder="Overskrift"><br> 
+                <label>Upload et billede til din post:</label>
+                <input type="file" name="file">
+                
+                <textarea name="post" id="post" placeholder="Skriv din besked her..." cols="30" rows="10"></textarea>
+                <button type="submit" class="waves-effect waves-light btn">Post din besked</button>
+            </form>
         </div>
     </div>

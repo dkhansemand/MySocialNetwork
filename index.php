@@ -13,4 +13,4 @@ require './profile.php';
             #Add
             #Edit
             #SLET
-require './partials/footer.php';
+
