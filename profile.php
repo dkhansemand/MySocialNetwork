@@ -31,7 +31,7 @@ if($_GET){
             $userDetail = $query->fetch(PDO::FETCH_ASSOC);
             $conn = null;
 ?>
-     <div class="row">
+ 
         <div class="col s5 m4">
           <div class="card">
             <div class="card-image" >
@@ -78,9 +78,10 @@ if($_GET){
             ?>
                   </div>
           </div>
-        </div>
-         <?php require 'posts.php'; ?>
-      </div>
+ 
+         <?php require 'writePosts.php';?>
+         <?php require 'posts.php';?>
+    
 
 <?php
         }else{

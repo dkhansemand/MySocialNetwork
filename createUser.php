@@ -54,7 +54,8 @@ if($_POST){
 }
 
 ?>
-
+<div class="row">
+<div class="col s6 m4">
 <p><?=@$success;?></p>
 <h1>
     Opret bruger
@@ -66,6 +67,7 @@ if($_POST){
     <button type="submit" class="waves-effect waves-light btn">Opret bruger<i class="material-icons right">send</i></button>
     <p style="color:red"><?=@$errorMsg;?></p>
 </form>
-
+</div>
+</div>
 </body>
 </html>

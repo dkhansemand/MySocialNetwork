@@ -24,7 +24,7 @@ require_once './lib/class.mysql.php';
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-       
+       <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
 </head>
 <body>
 <header>

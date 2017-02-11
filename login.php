@@ -62,7 +62,8 @@ if($_POST){
 }
 
 ?>
-
+<div class="row">
+<div class="col s6 m4">
 <form action="" method="post">
     <h2>Login</h2>
     <label>Brugernavn;</label>
@@ -73,6 +74,7 @@ if($_POST){
     <p style="color: red"><?=@$errorMsg;?></p>
 </form>
 <p>Opret en bruger <a class="waves-effect waves-light btn" href="createUser.php" title="">her</a></p>
-
+</div>
+</div>
 </body>
 </html>
