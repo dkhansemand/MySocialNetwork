@@ -33,8 +33,8 @@ if($query->execute() && $query->rowCount() > 0){
 
                 <p>Titel: <?=$posts['title']?></p>
                 <p>Oplæg: <?=$posts['post']?></p>
-                <p>Oplæg lavet: <?=$posts['postDate']?></p>
-
+                <p>Oplæg oprettet: <?=$posts['postDate']?></p>
+                <p>Posted af: <?=$posts["firstname"];?>&nbsp;<?=$posts["surname"];?></p>
 
             </div>
             <div class="card-action">
