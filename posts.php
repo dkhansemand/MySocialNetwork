@@ -5,7 +5,8 @@ if(isset($_GET["profileId"]) && $_GET["profileId"] != ''){
     $profilePosts = "";
 }
 $conn = new dbconnector();
-$query = $conn->newQuery("SELECT posts.title, posts.post, posts.postPicture, DATE_FORMAT(posts.datecreated, '%d-%m-%Y %h:%i:%s') AS postDate, pictures.filename AS postPicture, 
+$query = $conn->newQuery("SELECT posts.id AS postID, posts.title, posts.post, posts.postPicture, DATE_FORMAT(posts.datecreated, '%d-%m-%Y %h:%i:%s') AS postDate,
+                        posts.submittedby, pictures.filename AS postPicture, 
                         userdetails.firstname, userdetails.surname FROM posts 
                         LEFT JOIN pictures ON posts.postPicture = pictures.id 
                         INNER JOIN userdetails ON posts.submittedby = userdetails.userid
@@ -38,7 +39,13 @@ if($query->execute() && $query->rowCount() > 0){
 
             </div>
             <div class="card-action">
-               <!-- <a href="#">This is a link</a>-->
+            <?php
+            if($posts["submittedby"] == $_SESSION["id"]){
+            ?>
+               <a href="deletePost.php?postId=<?=$posts['postID'];?>&submittedby=<?=$posts['submittedby'];?>">Slet indlæg</a>
+               <?php
+            }
+               ?>
             </div>
         </div>
     </div>
