@@ -19,6 +19,7 @@ if ($_POST){
                     } else {
                         $_SESSION["postpost"]["msg"] = "Possible file upload attack!\n";
                         header('Location: ./');
+                        exit;
                     }
                 }
             }
@@ -39,19 +40,23 @@ if ($_POST){
             if ($query->execute()) {
                 $conn = null;
                 $_SESSION["postpost"]["msg"] += "<div class='alert alert-success' role='alert'>Din post er korrekt lagt op</div>";
-                header('Location: ./');
+                header('Location: index.php');
+                exit;
             } else {
                 $conn = null;
                 $_SESSION["postpost"]["msg"] += "<div class='alert alert-danger' role='alert'>Det var ikke muligt at tilføje din post.</div>";
                 header('Location: ./');
+                exit;
             }
         }else{
             $_SESSION["postpost"]["msg"] += "<div class='alert alert-danger' role='alert'>Det var ikke muligt at tilføje din post.</div>";
-            header('Location: ./');
+            header('Location: index.php');
+                exit;
         }
     }else{
         $_SESSION["postpost"]["msg"] += "<div class='alert alert-danger' role='alert'>Felterne skal udfyldes</div>";
-        header('Location: ./');
+        header('Location: index.php');
+                exit;
     }
 }
 if (isset($_SESSION['postpost']["msg"])){

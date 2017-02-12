@@ -1,16 +1,7 @@
 <?php
 
-require './partials/header.php';
+require_once './partials/header.php';
 
-require './profile.php';
-        #PROFILE
-            #Edituser
-            #Friends
-
-
-        #POST
-            #Comment
-            #Add
-            #Edit
-            #SLET
-
+require_once './profile.php';
+        
+?>

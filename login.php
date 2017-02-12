@@ -48,7 +48,8 @@ if($_POST){
                     $_SESSION['id'] = $result['id'];
                     $_SESSION['isLoggedIn'] = true;
                     $conn = null;
-                    header('Location: ./');
+                    header('Location: index.php');
+                    exit;
                 }else{
                     $conn = null;
                     $errorMsg = "Forkert brugernavn/password.";

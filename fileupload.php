@@ -45,29 +45,36 @@ if($_POST){
                     if($query->execute()){
                         $_SESSION["upload"]["msg"] = "<div class='alert alert-success' role='alert'>Billede er korrekt lagt op</div>";
                         header('Location: editProfile.php?id='.$_SESSION["id"]);
+                        exit;
                     }else{
                         $_SESSION["upload"]["msg"] = "<div class='alert alert-danger' role='alert'>Det var ikke muligt at uplaod billede.</div>";
                         header('Location: editProfile.php?id='.$_SESSION["id"]);
+                        exit;
                     }
                     
                     if (move_uploaded_file($_FILES['file']['tmp_name'], $uploaddir . $filename)) {
                          $_SESSION["upload"]["msg"] = "Dit billede er nu uploaded.\n";
                         header('Location: editProfile.php?id='.$_SESSION["id"]);
+                        exit;
                     } else {
                          $_SESSION["upload"]["msg"] = "Possible file upload attack!\n";
                          header('Location: editProfile.php?id='.$_SESSION["id"]);
+                         exit;
                     }
                 }else{
                     $_SESSION["upload"]["msg"] =  'størrelse max 1.5MB';
                     header('Location: editProfile.php?id='.$_SESSION["id"]);
+                    exit;
                 }
             }else{
                 $_SESSION["upload"]["msg"] = 'Filtype er begrænset til .jpg, .jpeg, .png, .gif. ';
                 header('Location: editProfile.php?id='.$_SESSION["id"]);
+                exit;
             }
     }else{
          $_SESSION["upload"]["msg"] = 'Alle felter skal udfyldes';
          header('Location: editProfile.php?id='.$_SESSION["id"]);
+         exit;
     }
 }
 ?>

@@ -121,6 +121,7 @@ if($_POST){
                 $conn = null;
                 $success = 'Profil er blevet opdateret!';
                 header('Refresh: 5; url=./');
+                exit;
             }else{
                 $conn = null;
                 $success =  'Der skete en fejl og kunne ikke opdatere.';
@@ -240,6 +241,9 @@ if($_POST){
 <?php
 }else {
     header('Location: ./');
+    exit;
 }
 
 require_once './partials/footer.php';
+
+?>

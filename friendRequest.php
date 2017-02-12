@@ -20,7 +20,8 @@ if($_GET){
         if($query->execute()){
             $conn = null;
             echo 'venskab accepteret.';
-            header('Location: ./friends.php');
+            header('Location: friends.php');
+            exit;
         }
     }elseif(!empty($_GET["id"]) && isset($_GET["removeReq"])){
         $conn = new dbconnector();
@@ -30,7 +31,8 @@ if($_GET){
         if($query->execute()){
             $conn = null;
             echo 'Anmodning fjernet.';
-            header('Location: ./friends.php');
+            header('Location: friends.php');
+            exit;
         }
     }elseif(!empty($_GET["id"]) && isset($_GET["add"])){
         $conn = new dbconnector();
@@ -40,8 +42,8 @@ if($_GET){
         if($query->execute()){
             echo 'Du har anmodet ' . $_GET["id"] . ' om venskab.';
             $conn = null;
-            header('Location: ./?profileId=' . $_GET["id"]);
-           
+            header('Location: index.php?profileId=' . $_GET["id"]);
+           exit;
         }else{
             echo 'Anmodning allerede sendt til bruger.';
         }
@@ -57,9 +59,11 @@ if($_GET){
         if($query->execute()){
             echo 'venskab fjernet.';
             $conn = null;
-             header('Location: ./friends.php');
+             header('Location: friends.php');
+             exit;
         }
         
     }
 }
 
+?>

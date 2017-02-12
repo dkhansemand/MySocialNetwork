@@ -1,6 +1,5 @@
 <?php
-require_once './lib/class.mysql.php';
-require './partials/header.php';
+require_once './partials/header.php';
 ?>
 <main>
        <div class="row">       

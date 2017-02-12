@@ -40,3 +40,5 @@ $query = $conn->newQuery("SELECT userdetails.Firstname, userdetails.Surname, use
             }
         }
     require_once './partials/footer.php';
+    
+?>

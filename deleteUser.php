@@ -20,12 +20,15 @@ if($_POST){
             session_destroy();
             echo 'Din bruger er nu slettet. Tak for denne gang!';
             header('Refresh: 5; url=./');
+            exit;
         }
      }else{
          header('Location: ./');
+         exit;
      }
 }else{
     header('Location: ./');
+    exit;
 }
 
 ?>

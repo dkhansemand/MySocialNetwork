@@ -46,6 +46,7 @@ if($_POST){
             $conn = null;
             $success = 'Din bruger er nu oprettet!';
             header('Refresh: 5; url=login.php');
+            exit;
         }
 
     }else{

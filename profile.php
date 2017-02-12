@@ -7,6 +7,7 @@
 }
 </style>
 <?php
+
 if($_GET){
   if(!empty($_GET["profileId"]) && is_numeric($_GET["profileId"])){
     $userid = $_GET["profileId"];
@@ -17,12 +18,12 @@ if($_GET){
         $conn = new dbconnector();
         $query = $conn->newQuery("SELECT 
         users.id AS user_ID, users.username, users.email,
-        userDetails.firstname, userDetails.surname, userDetails.age, userDetails.gender,
-        userDetails.city, userDetails.country, userDetails.profileText,
-        DATE_FORMAT(userdetails.DateCreated, '%d-%m-%Y %h:%i:%s') AS dateCreated, userdetails.ProfilePictureId,
+        userdetails.firstname, userdetails.surname, userdetails.age, userdetails.gender,
+        userdetails.city, userdetails.country, userdetails.profileText,
+        DATE_FORMAT(userdetails.datecreated, '%d-%m-%Y %h:%i:%s') AS dateCreated, userdetails.profilepictureId,
         pictures.filename AS profilePicture, pictures.title AS pictureTitle,
-        friends.StatusConfirm AS isFriends
-        FROM `users` 
+        friends.statusconfirm AS isFriends
+        FROM users 
         INNER JOIN userdetails ON users.id = userdetails.UserId AND users.id = :ID
         INNER JOIN pictures ON userdetails.ProfilePictureId = pictures.id
         LEFT JOIN friends ON (friends.UserOneId = :ID AND friends.UserTwoId = :SESSIONID) OR (friends.UserOneId = :SESSIONID AND friends.UserTwoId = :ID)");
@@ -31,9 +32,7 @@ if($_GET){
         if($query->execute() && $query->rowCount() > 0){
             $userDetail = $query->fetch(PDO::FETCH_ASSOC);
             $conn = null;
-            /*echo '<pre>';
-            var_dump($userDetail);
-            echo '</pre><br>';*/
+            
 ?>
  
         <div class="col s5 m4">
@@ -84,10 +83,12 @@ if($_GET){
           </div>
          <?php
          if($userid == $_SESSION["id"]){
-          require 'writePosts.php';
+          require_once 'writePosts.php';
          }
           ?>
-         <?php require 'posts.php';?>
+         <?php 
+         require_once 'posts.php';
+         ?>
           </div>
     
 
@@ -95,6 +96,6 @@ if($_GET){
         }else{
             echo 'Bruger findes ikke';
         }
-        require './partials/footer.php';
+        require_once './partials/footer.php';
 ?>
 
