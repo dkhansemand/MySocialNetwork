@@ -4,8 +4,8 @@ require './partials/header.php';
  $conn = new dbconnector();
         $query = $conn->newQuery("SELECT 
         users.id AS user_ID, users.username, users.email,
-        userDetails.firstname, userDetails.surname, userDetails.age, userDetails.gender,
-        userDetails.city, userDetails.country, userDetails.profileText,
+        userdetails.firstname, userdetails.surname, userdetails.age, userdetails.gender,
+        userdetails.city, userdetails.country, userdetails.profileText,
         DATE_FORMAT(userdetails.DateCreated, '%d-%m-%Y %h:%i:%s') AS dateCreated, userdetails.ProfilePictureId,
         pictures.filename AS profilePicture, pictures.title AS pictureTitle, pictures.pictureDesc
         FROM `users` 
