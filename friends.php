@@ -47,7 +47,17 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
               
             }
         }else{
-            echo 'Ingen nye anmodninger';
+            ?>
+            <div class="col s6 m4">
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                        <p>Ingen nye anmodninger</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
         }
 
 
@@ -110,7 +120,17 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                     $conn = null;
                 }else{
                     $conn = null;
-                    echo 'Du har ingen venner.';
+                      ?>
+            <div class="col s6 m4">
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                        <p>Ingen venner.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
                 }
 
 
