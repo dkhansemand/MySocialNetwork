@@ -27,3 +27,5 @@ if($_GET){
     header('Location: index.php');
     exit;
 }
+
+?>
