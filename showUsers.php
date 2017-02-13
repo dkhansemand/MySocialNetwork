@@ -20,7 +20,7 @@ $query = $conn->newQuery("SELECT userdetails.Firstname, userdetails.Surname, use
                         <img src="uploads/<?=$results['profilePicture'];?>" alt="<?=$results['pictureTitle'];?>" title="<?=$results['pictureTitle'];?>" height="250" width="250">
                         </div>
                         <div class="card-content">
-                        <h3><?=$results["Firstname"];?>&nbsp;<?=$results["Surname"];?></h3>
+                        <h5><?=$results["Firstname"];?>&nbsp;<?=$results["Surname"];?></h5>
                         <p>Brugernavn: <?=$results["Username"];?></p>
                         <p>E-mail: <?=$results["Email"];?></p>
                         <p>Alder: <?=$results["Age"];?></p>

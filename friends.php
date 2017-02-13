@@ -22,9 +22,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
             <h2>Anmodninger:</h2>
             <?php
             while($requests = $queryRequests->fetch(PDO::FETCH_ASSOC)){
-                /*echo '<pre>';
-                var_dump($requests);
-                echo '</pre>';*/
+               
                 ?>
                  <div class="col s6 m4">
                     <div class="card horizontal">
@@ -48,6 +46,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
             }
         }else{
             ?>
+            <div class="row">
             <div class="col s6 m4">
                 <div class="card horizontal">
                     <div class="card-stacked">
@@ -57,6 +56,7 @@ $queryRequests = $conn->newQuery("SELECT friends.Action_userId, friends.statusCo
                     </div>
                 </div>
             </div>
+            </div
             <?php
         }
 
@@ -73,9 +73,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                 <h2>Venner:</h2>
                 <?php
                     while($friends = $queryFriends->fetch(PDO::FETCH_ASSOC)){
-                        /*echo '<pre>';
-                        var_dump($friends);
-                        echo '</pre>';*/
+                     
 
                         if($_SESSION["id"] != $friends["UserOneId"]){
                             $profileId = $friends["UserOneId"];
@@ -92,9 +90,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                                         $getDetails->bindParam(":USERID", $profileId);
                                         $getDetails->execute();
                                         $friendDetails = $getDetails->fetch(PDO::FETCH_ASSOC);
-                                       /* echo '<strong><pre>';
-                                        var_dump($friendDetails);
-                                        echo '</pre></strong>';*/
+                                      
                         
                         ?>
                         <div class="col s6 m4">
@@ -121,6 +117,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                 }else{
                     $conn = null;
                       ?>
+                      <div class="row">
             <div class="col s6 m4">
                 <div class="card horizontal">
                     <div class="card-stacked">
@@ -129,6 +126,7 @@ $queryFriends = $conn->newQuery("SELECT friends.UserOneId, friends.UserTwoId FRO
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <?php
                 }
